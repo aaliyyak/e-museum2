@@ -28,7 +28,7 @@ class _OnboardingPageState extends State<OnboardingPage>
     super.initState();
 
     // Video controller tanpa autoplay
-    _controller = VideoPlayerController.asset('assets/videos/on.mp4')
+    _controller = VideoPlayerController.asset('assets/videos/onnn.mp4')
       ..initialize().then((_) {
         setState(() {});
         _controller.setLooping(false);
@@ -201,18 +201,18 @@ class _OnboardingPageState extends State<OnboardingPage>
           children: [
             // Konten utama: video + teks
             SingleChildScrollView(
-              padding: const EdgeInsets.only(bottom: 200),
+              padding: const EdgeInsets.only(bottom: 180),
               child: Column(
                 children: [
                   ClipRRect(
                     borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.elliptical(80, 250),
-                      bottomRight: Radius.elliptical(870, 300),
+                      bottomLeft: Radius.elliptical(180, 350),
+                      bottomRight: Radius.elliptical(940, 115),
                     ),
                     child: _controller.value.isInitialized
                         ? SizedBox(
                             width: double.infinity,
-                            height: 465,
+                            height: 480,
                             child: AspectRatio(
                               aspectRatio: _controller.value.aspectRatio,
                               child: VideoPlayer(_controller),
@@ -265,8 +265,8 @@ class _OnboardingPageState extends State<OnboardingPage>
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: SizedBox(
-                    width: 100,
-                    height: 100,
+                    width: 150,
+                    height: 150,
                     child: CameraPreview(_cameraFront!),
                   ),
                 ),
