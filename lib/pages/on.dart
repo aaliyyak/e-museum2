@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
 import 'package:camera/camera.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -207,7 +208,7 @@ class _OnboardingPageState extends State<OnboardingPage>
                   ClipRRect(
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.elliptical(180, 350),
-                      bottomRight: Radius.elliptical(940, 115),
+                      bottomRight: Radius.elliptical(940, 215),
                     ),
                     child: _controller.value.isInitialized
                         ? SizedBox(
@@ -220,22 +221,24 @@ class _OnboardingPageState extends State<OnboardingPage>
                           )
                         : const Center(child: CircularProgressIndicator()),
                   ),
-                  const SizedBox(height: 16),
-                  const Text(
+
+                  // Judul dan teks deskripsi
+                  const SizedBox(height: 10),
+                  Text(
                     'Museum SMB II Palembang',
-                    style: TextStyle(
-                      fontSize: 28,
+                    style: GoogleFonts.candal(
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 8),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  const SizedBox(height: 5),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18.0),
                     child: Text(
-                      'Selamat datang di Museum Sultan Mahmud Badaruddin II Palembang. Jelajahi sejarah dan budaya.',
-                      style: TextStyle(
+                      'Selamat datang di Museum Sultan Mahmud Badaruddin II Palembang. Mencintai Budaya, Memajukan Peradaban.',
+                      style: GoogleFonts.faustina(
                         fontSize: 14,
                         color: Colors.black54,
                       ),
@@ -265,8 +268,8 @@ class _OnboardingPageState extends State<OnboardingPage>
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: SizedBox(
-                    width: 150,
-                    height: 150,
+                    width: 120,
+                    height: 120,
                     child: CameraPreview(_cameraFront!),
                   ),
                 ),
