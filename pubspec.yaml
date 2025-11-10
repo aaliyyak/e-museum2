@@ -40,6 +40,8 @@ dependencies:
   permission_handler: ^11.3.1
   sound_stream: ^0.4.2
   google_fonts: ^6.3.0
+  speech_to_text: ^6.6.0
+  flutter_tts: ^3.6.0
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +68,7 @@ flutter:
   assets:
     - assets/icon/
     - assets/videos/
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

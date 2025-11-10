@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
 import 'package:camera/camera.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'voice_popup.dart'; // popup disimpan di file terpisah
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -28,17 +29,14 @@ class _OnboardingPageState extends State<OnboardingPage>
   void initState() {
     super.initState();
 
-    // Video controller tanpa autoplay
     _controller = VideoPlayerController.asset('assets/videos/onnn.mp4')
       ..initialize().then((_) {
         setState(() {});
         _controller.setLooping(false);
       });
 
-    // Inisialisasi kamera depan
     _initCamerasAndFront();
 
-    // Animasi berkedip ikon kamera
     _blinkController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -104,12 +102,8 @@ class _OnboardingPageState extends State<OnboardingPage>
         setState(() {});
 
         if (_isMovingFront) {
-          print("👤 Orang terekam kamera");
-
-          // Hitung "hash" sederhana dari frame saat ini
           Uint8List frameHash = _computeFrameHash(currentFrame);
 
-          // Jika orang baru (hash berbeda) dan video tidak sedang play
           if (!_videoPlaying &&
               (_lastPersonHash == null ||
                   !_compareHash(_lastPersonHash!, frameHash))) {
@@ -125,7 +119,6 @@ class _OnboardingPageState extends State<OnboardingPage>
   }
 
   Uint8List _computeFrameHash(Uint8List frame) {
-    // Ambil sample frame sederhana: setiap 100 byte dijadikan hash
     return Uint8List.fromList(
         [for (int i = 0; i < frame.length; i += 100) frame[i]]);
   }
@@ -145,11 +138,9 @@ class _OnboardingPageState extends State<OnboardingPage>
     await _controller.seekTo(Duration.zero);
     await _controller.play();
 
-    // Listener untuk menandai video selesai
     void listener() {
       if (_controller.value.position >= _controller.value.duration) {
-        _videoPlaying =
-            false; // video selesai, siap diputar lagi jika orang baru
+        _videoPlaying = false;
         _controller.removeListener(listener);
       }
     }
@@ -185,6 +176,28 @@ class _OnboardingPageState extends State<OnboardingPage>
     );
   }
 
+  /// 🔴 Ketika mic ditekan
+  Future<void> _onMicPressed() async {
+    await _stopCameraFront(); // Matikan kamera sementara
+
+    final result = await showDialog(
+      context: context,
+      builder: (_) => VoicePopupAuto(
+        onCameraOff: () async {
+          await _stopCameraFront(); // Pastikan kamera dimatikan sebelum popup
+        },
+        onCameraOn: () async {
+          await _initCamerasAndFront(); // Hidupkan kamera lagi setelah popup ditutup
+        },
+      ),
+    );
+
+    // Jika ada hasil dari popup
+    if (result != null && result is Map<String, dynamic>) {
+      Navigator.pushNamed(context, '/output', arguments: result);
+    }
+  }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -200,7 +213,7 @@ class _OnboardingPageState extends State<OnboardingPage>
       body: SafeArea(
         child: Stack(
           children: [
-            // Konten utama: video + teks
+            // Konten utama
             SingleChildScrollView(
               padding: const EdgeInsets.only(bottom: 180),
               child: Column(
@@ -221,8 +234,6 @@ class _OnboardingPageState extends State<OnboardingPage>
                           )
                         : const Center(child: CircularProgressIndicator()),
                   ),
-
-                  // Judul dan teks deskripsi
                   const SizedBox(height: 10),
                   Text(
                     'Museum SMB II Palembang',
@@ -275,21 +286,24 @@ class _OnboardingPageState extends State<OnboardingPage>
                 ),
               ),
 
-            // Icon mic kanan bawah
+            // Tombol mic kanan bawah
             Positioned(
               bottom: 20,
               right: 20,
-              child: Container(
-                padding: const EdgeInsets.all(18),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(181, 255, 205, 210),
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 2),
-                ),
-                child: const Icon(
-                  Icons.mic,
-                  color: Color.fromARGB(244, 163, 13, 2),
-                  size: 40,
+              child: GestureDetector(
+                onTap: _onMicPressed,
+                child: Container(
+                  padding: const EdgeInsets.all(18),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(181, 255, 205, 210),
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 2),
+                  ),
+                  child: const Icon(
+                    Icons.mic,
+                    color: Color.fromARGB(244, 163, 13, 2),
+                    size: 40,
+                  ),
                 ),
               ),
             ),
