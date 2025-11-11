@@ -6,21 +6,21 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import '../models/koleksi_models.dart';
 import '../data/koleksi_data.dart';
 
-class VoicePopupAuto extends StatefulWidget {
+class VoicePopupWithButton extends StatefulWidget {
   final VoidCallback onCameraOff;
   final VoidCallback onCameraOn;
 
-  const VoicePopupAuto({
+  const VoicePopupWithButton({
     super.key,
     required this.onCameraOff,
     required this.onCameraOn,
   });
 
   @override
-  State<VoicePopupAuto> createState() => _VoicePopupAutoState();
+  State<VoicePopupWithButton> createState() => _VoicePopupWithButtonState();
 }
 
-class _VoicePopupAutoState extends State<VoicePopupAuto>
+class _VoicePopupWithButtonState extends State<VoicePopupWithButton>
     with SingleTickerProviderStateMixin {
   late stt.SpeechToText _speech;
   bool _isListening = false;
@@ -93,38 +93,38 @@ class _VoicePopupAutoState extends State<VoicePopupAuto>
     if (!mounted) return;
 
     setState(() => _isListening = false);
+  }
+
+  void _sendVoice() {
     final recognizedText = _text;
-    _text = "";
+    if (recognizedText.isEmpty) return;
 
-    widget.onCameraOff();
+    final result = _findKoleksi(recognizedText.toLowerCase());
+    widget.onCameraOff(); // kamera mati
+    Navigator.pop(context);
 
-    if (!forceDispose && recognizedText.isNotEmpty) {
-      final result = _findKoleksi(recognizedText.toLowerCase());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
 
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!mounted) return;
-        if (result != null) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => OutputPage(
-                userName: _extractUserName(recognizedText),
-                koleksi: result,
-                onExit: () {
-                  widget.onCameraOn();
-                  if (mounted) Navigator.pop(context);
-                },
-              ),
+      if (result != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => OutputPage(
+              userName: _extractUserName(recognizedText),
+              koleksi: result,
+              onExit: widget
+                  .onCameraOn, // kamera hidup kembali saat keluar OutputPage
             ),
-          );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Tidak ditemukan hasil yang cocok.")),
-          );
-          widget.onCameraOn();
-        }
-      });
-    }
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Tidak ditemukan hasil yang cocok.")),
+        );
+        widget.onCameraOn(); // hidupkan kamera jika tidak ada hasil
+      }
+    });
   }
 
   Koleksi? _findKoleksi(String text) {
@@ -147,7 +147,7 @@ class _VoicePopupAutoState extends State<VoicePopupAuto>
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       contentPadding: EdgeInsets.zero,
       content: Stack(
         children: [
@@ -156,10 +156,6 @@ class _VoicePopupAutoState extends State<VoicePopupAuto>
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  "Silakan berbicara untuk mencari koleksi museum.",
-                  style: TextStyle(fontSize: 14),
-                ),
                 const SizedBox(height: 14),
                 GestureDetector(
                   onTap: _toggleListening,
@@ -187,27 +183,57 @@ class _VoicePopupAutoState extends State<VoicePopupAuto>
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  _text.isEmpty
-                      ? (_isListening
-                          ? "Mendengarkan..."
-                          : "Tekan mikrofon untuk mulai")
-                      : _text,
-                  textAlign: TextAlign.center,
+                const SizedBox(height: 12),
+                Center(
+                  child: Text(
+                    _text.isEmpty
+                        ? (_isListening
+                            ? "Mendengarkan..."
+                            : "Tekan mikrofon untuk mencari koleksi museum")
+                        : _text,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                ElevatedButton(
+                  onPressed: _sendVoice,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
+                  ),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "Kirim",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Icon(Icons.send, color: Colors.white),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
           Positioned(
-            top: 4,
-            right: 4,
+            top: 8,
+            right: 8,
             child: GestureDetector(
               onTap: () {
                 _stopListening();
                 widget.onCameraOn();
+                Navigator.pop(context);
               },
-              child: const Icon(Icons.close, size: 18, color: Colors.red),
+              child: const Icon(Icons.close, size: 25, color: Colors.red),
             ),
           ),
         ],

@@ -152,15 +152,15 @@ class _OnboardingPageState extends State<OnboardingPage>
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 80),
-        padding: const EdgeInsets.all(16),
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 160),
+        padding: const EdgeInsets.all(10),
         backgroundColor: Colors.redAccent.shade400,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        duration: const Duration(seconds: 2),
+        duration: const Duration(seconds: 6),
         content: const Row(
           children: [
             Icon(Icons.person, color: Colors.white),
-            SizedBox(width: 12),
+            SizedBox(width: 10),
             Expanded(
               child: Text(
                 'Orang terdeteksi di kamera!',
@@ -182,7 +182,7 @@ class _OnboardingPageState extends State<OnboardingPage>
 
     final result = await showDialog(
       context: context,
-      builder: (_) => VoicePopupAuto(
+      builder: (_) => VoicePopupWithButton(
         onCameraOff: () async {
           await _stopCameraFront(); // Pastikan kamera dimatikan sebelum popup
         },
@@ -215,7 +215,7 @@ class _OnboardingPageState extends State<OnboardingPage>
           children: [
             // Konten utama
             SingleChildScrollView(
-              padding: const EdgeInsets.only(bottom: 180),
+              padding: const EdgeInsets.only(top: 0, bottom: 180),
               child: Column(
                 children: [
                   ClipRRect(
@@ -262,12 +262,12 @@ class _OnboardingPageState extends State<OnboardingPage>
 
             // Ikon kamera kanan atas
             Positioned(
-              top: 8,
-              right: 16,
+              top: 2,
+              right: 10,
               child: Icon(
                 Icons.camera_alt,
                 color: _isMovingFront ? Colors.red : Colors.grey,
-                size: 25,
+                size: 22,
               ),
             ),
 
@@ -279,8 +279,8 @@ class _OnboardingPageState extends State<OnboardingPage>
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: SizedBox(
-                    width: 120,
-                    height: 120,
+                    width: 110,
+                    height: 130,
                     child: CameraPreview(_cameraFront!),
                   ),
                 ),

@@ -38,7 +38,7 @@ class _OutputPageState extends State<OutputPage> {
 
   /// 🔹 Inisialisasi video
   Future<void> _initVideo() async {
-    _controller = VideoPlayerController.asset('assets/videos/onnn.mp4');
+    _controller = VideoPlayerController.asset('assets/videos/viii.mp4');
     await _controller.initialize();
     if (!_isDisposed) setState(() {});
 
@@ -102,7 +102,7 @@ class _OutputPageState extends State<OutputPage> {
       body: Stack(
         children: [
           SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 28, bottom: 100),
+            padding: const EdgeInsets.only(bottom: 100),
             child: Column(
               children: [
                 ClipRRect(
@@ -113,7 +113,7 @@ class _OutputPageState extends State<OutputPage> {
                   child: _controller.value.isInitialized
                       ? SizedBox(
                           width: double.infinity,
-                          height: 480,
+                          height: 450,
                           child: AspectRatio(
                             aspectRatio: _controller.value.aspectRatio,
                             child: VideoPlayer(_controller),
@@ -127,15 +127,15 @@ class _OutputPageState extends State<OutputPage> {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Colors.pink.shade50, Colors.red.shade100],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
+                    //gradient: LinearGradient(
+                    color: Colors.white,
+                    //begin: Alignment.topLeft,
+                    //end: Alignment.bottomRight,
+                    // ),
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: Colors.black.withOpacity(0.2),
                         blurRadius: 10,
                         offset: const Offset(0, 5),
                       ),
@@ -235,7 +235,7 @@ class _OutputPageState extends State<OutputPage> {
                                 Text(
                                   koleksi.instruksi,
                                   style: GoogleFonts.faustina(
-                                      fontSize: 12, color: Colors.black54),
+                                      fontSize: 13, color: Colors.black54),
                                 ),
                                 const SizedBox(height: 15),
                                 Row(
