@@ -32,29 +32,23 @@ class _OutputPageState extends State<OutputPage> {
     super.initState();
     _ttsService = TtsService();
     widget.onCameraOff?.call();
-
     _initVideo();
   }
 
-  /// 🔹 Inisialisasi video
   Future<void> _initVideo() async {
     _controller = VideoPlayerController.asset('assets/videos/viii.mp4');
     await _controller.initialize();
     if (!_isDisposed) setState(() {});
-
     _controller.setVolume(0);
     await _playVideoAndTtsOnce();
   }
 
-  /// 🔹 Putar video & TTS setiap kali halaman dibuka
   Future<void> _playVideoAndTtsOnce() async {
     if (_isDisposed) return;
-
     await _controller.seekTo(Duration.zero);
     await _controller.play();
     await _speakTeks();
 
-    // Listener: saat video selesai, bisa atur flag jika perlu
     _controller.addListener(() {
       if (_controller.value.position >= _controller.value.duration &&
           !_controller.value.isPlaying &&
@@ -64,7 +58,6 @@ class _OutputPageState extends State<OutputPage> {
     });
   }
 
-  /// 🔹 Fungsi TTS
   Future<void> _speakTeks() async {
     final nama = widget.userName.isEmpty ? "Pengunjung" : widget.userName;
     final kalimat =
@@ -73,7 +66,6 @@ class _OutputPageState extends State<OutputPage> {
     await _ttsService.speak(kalimat, kalimat);
   }
 
-  /// 🔹 Tombol play ulang
   Future<void> _replayVideoAndTts() async {
     await _playVideoAndTtsOnce();
   }
@@ -127,11 +119,7 @@ class _OutputPageState extends State<OutputPage> {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
-                    //gradient: LinearGradient(
                     color: Colors.white,
-                    //begin: Alignment.topLeft,
-                    //end: Alignment.bottomRight,
-                    // ),
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
@@ -253,11 +241,33 @@ class _OutputPageState extends State<OutputPage> {
                                     ),
                                   ],
                                 ),
-                                const SizedBox(height: 50),
+                                const SizedBox(height: 60),
                               ],
                             ),
                           ),
                         ],
+                      ),
+
+                      /// 🔹 Tombol Play & Exit di bagian bawah kanan & kiri
+                      Positioned(
+                        bottom: 5,
+                        left: 0,
+                        child: ElevatedButton.icon(
+                          onPressed: _handleExit,
+                          icon: const Icon(Icons.exit_to_app,
+                              color: Colors.white),
+                          label: const Text("Exit",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500)),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                          ),
+                        ),
                       ),
                       Positioned(
                         bottom: -10,
@@ -273,22 +283,6 @@ class _OutputPageState extends State<OutputPage> {
                   ),
                 ),
               ],
-            ),
-          ),
-          Positioned(
-            top: 40,
-            left: 20,
-            child: GestureDetector(
-              onTap: _handleExit,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.4),
-                  shape: BoxShape.circle,
-                ),
-                padding: const EdgeInsets.all(8),
-                child: const Icon(Icons.exit_to_app,
-                    color: Colors.white, size: 26),
-              ),
             ),
           ),
         ],

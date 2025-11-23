@@ -9,6 +9,8 @@ final List<Koleksi> koleksiList = [
     instruksi: "Jalan lurus sekitar 19 langkah, lukisan ada disebelah kiri.",
     imagePath: "assets/images/ratusinuhun.jpg",
     keywords: [
+      "lukisan ratu",
+      "ratu",
       "ratu sinuhun",
       "lukisan ratu",
       "sinuhun",
@@ -26,9 +28,12 @@ final List<Koleksi> koleksiList = [
     instruksi: "Jalan lurus sekitar 19 langkah, lukisan ada disebelah kiri.",
     imagePath: "assets/images/kutogawang.jpg",
     keywords: [
+      "lukisan kutogawang",
       "lukisan Keraton Kuto gawang",
+      "lukisan keraton",
       "Lukisan Keraton Kuto Gawang",
       "lukisan kutogawang",
+      "lukisan kuto gawang",
       "kutogawang",
       "kutogawang painting",
       "the painting of kutogawang palace"
@@ -42,6 +47,8 @@ final List<Koleksi> koleksiList = [
     instruksi: "Jalan lurus sekitar 19 langkah, Diorama ada disebelah kanan.",
     imagePath: "assets/images/diorama.jpg",
     keywords: [
+      "diorama",
+      "diorama perang",
       "diorama perang kutogawang",
       "diorama kutogawang",
       "perang kutogawang",
@@ -58,6 +65,7 @@ final List<Koleksi> koleksiList = [
         "Jalan lurus sekitar 20 langkah, Meriam Lela ada disebelah kanan.",
     imagePath: "assets/images/meriamlela.jpg",
     keywords: [
+      "meriam",
       "meriam lila dan peluru",
       "meriam lila"
           "meriam lela",
@@ -75,6 +83,8 @@ final List<Koleksi> koleksiList = [
     instruksi: "Di sebelah kiri dekat meja admin sekitar 12 langkah.",
     imagePath: "assets/images/ptelaga.png",
     keywords: [
+      "prasasti",
+      "prasasti telaga",
       "Replika Prasasti Telaga Batu"
           "prasasti telaga batu",
       "telaga batu",
@@ -90,6 +100,7 @@ final List<Koleksi> koleksiList = [
     instruksi: "Di sebelah kiri dekat meja admin sekitar 13 langkah ",
     imagePath: "assets/images/Talangtuo.png",
     keywords: [
+      "prasasti",
       "prasasti talang tuo",
       "talang tuo",
       "talang tuo inscription",
@@ -105,6 +116,7 @@ final List<Koleksi> koleksiList = [
         "Di sebelah kiri dekat meja admin sekitar 14 langkah disebelah prasasti talang tuo.",
     imagePath: "assets/images/boombaru.png",
     keywords: [
+      "prasasti",
       "prasasti boom baru",
       "boom baru",
       "boom baru inscription",
@@ -119,6 +131,8 @@ final List<Koleksi> koleksiList = [
     instruksi: "Maju sekitar 9 langkah. Arca berada disebelah kanan",
     imagePath: "assets/images/arcaawalo.png",
     keywords: [
+      "arca",
+      "arca Awalokiteswara",
       " Arca awalokiteswara ",
       "awalokiteswara",
       "avalokitesvara statue",
@@ -133,6 +147,7 @@ final List<Koleksi> koleksiList = [
     instruksi: "Maju sekitar 10 langkah. Arca berada disebelah kanan",
     imagePath: "assets/images/archabuddha.png",
     keywords: [
+      "arca",
       " Arca Buddha",
       "arca buddha",
       "buddha statue",
@@ -147,6 +162,9 @@ final List<Koleksi> koleksiList = [
         "Maju sekitar 11 langkah. Mata uang dan komoditas dagang berada disebelah kanan",
     imagePath: "assets/images/matauang.png",
     keywords: [
+      "duit",
+      "duwet",
+      "duet",
       "mata uang dan komoditas dagang asing",
       "mata uang",
       "komoditas dagang"
@@ -162,6 +180,7 @@ final List<Koleksi> koleksiList = [
     instruksi: "Maju sekitar 12 langkah. Guci berada disebelah kanan",
     imagePath: "assets/images/guci.png",
     keywords: [
+      "guci sang",
       "guci dinasti sang",
       "guci",
       "sang dynasty vase",
@@ -176,6 +195,7 @@ final List<Koleksi> koleksiList = [
     instruksi: "Maju sekitar 12 langkah. Buli-buli berada disebelah kanan",
     imagePath: "assets/images/guci.png",
     keywords: [
+      "buli",
       "buli buli",
       "buli-buli",
       "small ceramic container",
@@ -194,6 +214,8 @@ final List<Koleksi> koleksiList = [
     instruksi: "Prasasti berada sekitar 5 langkah didepan anda, Setelah masuk.",
     imagePath: "assets/images/kedukanbukit.png",
     keywords: [
+      "prasasti",
+      "prasasti kedukan",
       "prasasti kedukan bukit",
       "kedukan bukit",
       "kedukan bukit inscription",
@@ -208,6 +230,7 @@ final List<Koleksi> koleksiList = [
     instruksi: "Maju lurus sekitar 24 langkah, koleksi berada disebelah kanan.",
     imagePath: "assets/images/botol.png",
     keywords: [
+      "botol",
       "botol belanda di sungai musi",
       "botol belanda",
       "bottles from dutch in musi river",
@@ -223,6 +246,9 @@ final List<Koleksi> koleksiList = [
         "Maju lurus sekitar 24 langkah, miniatur berada disebelah kanan.",
     imagePath: "assets/images/jembatan.png",
     keywords: [
+      "miniatur",
+      "miniatur jembatan",
+      "miniatur palembang",
       "miniatur jembatan ampera",
       "jembatan ampera",
       "ampera bridge miniature",
@@ -238,6 +264,8 @@ final List<Koleksi> koleksiList = [
         "Maju lurus sekitar 10 langkah, lalu belok kiri 10 langkah masuk dalam ruangan dan lambang berada disebelah kanan.",
     imagePath: "assets/images/lambang.png",
     keywords: [
+      "lambang",
+      "lambang sultan",
       "lambang kesultanan palembang darussalam",
       "lambang kesultanan palembang",
       "palembang darussalam sultanate emblem",
@@ -253,6 +281,7 @@ final List<Koleksi> koleksiList = [
         "Maju lurus sekitar 10 langkah, lalu belok kiri 10 langkah masuk dalam ruangan dan gambar berada disebelah kanan.",
     imagePath: "assets/images/masjid.png",
     keywords: [
+      "masjid",
       "gambar masjid agung palembang",
       "masjid agung palembang",
       "great mosque of palembang image",
@@ -269,6 +298,7 @@ final List<Koleksi> koleksiList = [
         "Maju lurus sekitar 10 langkah, lalu belok kiri 10 langkah masuk dalam ruangan dan ruangan kesultanan palembang berada disebelah kiri.",
     imagePath: "assets/images/pakaian.png",
     keywords: [
+      "pakaian sultan",
       "pakaian kebesaran sultan palembang",
       "pakaian sultan palembang",
       "sultan palembang royal attire",
@@ -284,6 +314,8 @@ final List<Koleksi> koleksiList = [
         "Maju lurus sekitar 10 langkah, lalu belok kiri 10 langkah masuk dalam ruangan dan ruangan kesultanan palembang berada disebelah kiri.",
     imagePath: "assets/images/senjata.png",
     keywords: [
+      "senjata",
+      "senjata punggawa",
       "senjata punggawa kerajaan",
       "senjata kerajaan",
       "royal warrior weapons",
@@ -299,6 +331,7 @@ final List<Koleksi> koleksiList = [
         "Maju lurus sekitar 10 langkah, lalu belok kiri 10 langkah masuk dalam ruangan dan lukisan berada disebelah kanan.",
     imagePath: "assets/images/lukisanperang.png",
     keywords: [
+      "lukisan perang",
       "lukisan perang palembang 1821",
       "lukisan perang palembang",
       "palembang war painting 1821",
@@ -314,6 +347,8 @@ final List<Koleksi> koleksiList = [
         "Maju lurus sekitar 10 langkah, lalu belok kiri 10 langkah masuk dalam ruangan dan lukisan berada diruangan sebelah kanan.",
     imagePath: "assets/images/asingan.png",
     keywords: [
+      "pengasingan sultan"
+          "lukisan sultan smb ii pengasingan",
       " lukisan pengasingan sultan mahmud badaruddin ii",
       "lukisan pengasingan sultan mahmud badaruddin",
       "painting of exile of sultan mahmud badaruddin ii",
@@ -326,9 +361,11 @@ final List<Koleksi> koleksiList = [
         " Lukisan ini menggambarkan potret Sultan Mahmud Badaruddin II yang diabadikan pada uang kertas Rp 10.000. Lukisan ini menampilkan wajah Sultan dengan detail yang halus, mencerminkan kebesaran dan martabatnya sebagai pemimpin Kesultanan Palembang.",
     lokasi: "Lantai 1, Ruang sebelah kiri ujung",
     instruksi:
-        "Maju lurus sekitar 10 langkah, lalu belok kiri 10 langkah masuk dalam ruangan dan lukisan berada diruangan sebelah kanan.",
+        "Maju sekitar 10 langkah, lalu belok kiri 10 langkah masuk dalam ruangan sebelah kanan.",
     imagePath: "assets/images/smb.png",
     keywords: [
+      "lukisan sultan",
+      "lukisan wajah sultan",
       "lukisan wajah sultan mahmud badaruddin ii",
       "lukisan sultan mahmud badaruddin ii",
       "portrait painting of sultan mahmud badaruddin ii",
