@@ -66,7 +66,16 @@ class _VoicePopupWithButtonState extends State<VoicePopupWithButton>
   Future<void> _startListening() async {
     bool available = await _speech.initialize(
       onStatus: (val) {
-        if (val == "done" && mounted) _stopListening();
+        if (val == "done" && mounted) {
+          _stopListening();
+
+          // Auto proses setelah selesai bicara
+          Future.delayed(const Duration(milliseconds: 300), () {
+            if (_text.isNotEmpty) {
+              _sendVoice();
+            }
+          });
+        }
       },
       onError: (val) => debugPrint("Error: $val"),
     );
@@ -100,7 +109,7 @@ class _VoicePopupWithButtonState extends State<VoicePopupWithButton>
     if (recognizedText.isEmpty) return;
 
     final result = _findKoleksi(recognizedText.toLowerCase());
-    widget.onCameraOff(); // kamera mati
+    widget.onCameraOff(); // Kamera mati
     Navigator.pop(context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -113,8 +122,7 @@ class _VoicePopupWithButtonState extends State<VoicePopupWithButton>
             builder: (_) => OutputPage(
               userName: _extractUserName(recognizedText),
               koleksi: result,
-              onExit: widget
-                  .onCameraOn, // kamera hidup kembali saat keluar OutputPage
+              onExit: widget.onCameraOn, // Kamera hidup kembali
             ),
           ),
         );
@@ -122,7 +130,7 @@ class _VoicePopupWithButtonState extends State<VoicePopupWithButton>
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Tidak ditemukan hasil yang cocok.")),
         );
-        widget.onCameraOn(); // hidupkan kamera jika tidak ada hasil
+        widget.onCameraOn();
       }
     });
   }
@@ -194,36 +202,12 @@ class _VoicePopupWithButtonState extends State<VoicePopupWithButton>
                     textAlign: TextAlign.center,
                   ),
                 ),
-                const SizedBox(height: 12),
-                ElevatedButton(
-                  onPressed: _sendVoice,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
-                  ),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        "Kirim",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Icon(Icons.send, color: Colors.white),
-                    ],
-                  ),
-                ),
+                const SizedBox(height: 20),
               ],
             ),
           ),
+
+          // Tombol Close
           Positioned(
             top: 8,
             right: 8,
@@ -251,6 +235,7 @@ class _WavePainter extends CustomPainter {
     final paint = Paint()
       ..color = Colors.redAccent.withOpacity(0.3)
       ..style = PaintingStyle.fill;
+
     double radius = 30 + 10 * sin(progress * 2 * pi);
     canvas.drawCircle(size.center(Offset.zero), radius, paint);
   }

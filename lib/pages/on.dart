@@ -152,8 +152,8 @@ class _OnboardingPageState extends State<OnboardingPage>
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 160),
-        padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.symmetric(horizontal: 60, vertical: 30),
+        padding: const EdgeInsets.all(7),
         backgroundColor: Colors.redAccent.shade400,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         duration: const Duration(seconds: 6),
@@ -176,23 +176,21 @@ class _OnboardingPageState extends State<OnboardingPage>
     );
   }
 
-  /// 🔴 Ketika mic ditekan
   Future<void> _onMicPressed() async {
-    await _stopCameraFront(); // Matikan kamera sementara
+    await _stopCameraFront();
 
     final result = await showDialog(
       context: context,
       builder: (_) => VoicePopupWithButton(
         onCameraOff: () async {
-          await _stopCameraFront(); // Pastikan kamera dimatikan sebelum popup
+          await _stopCameraFront();
         },
         onCameraOn: () async {
-          await _initCamerasAndFront(); // Hidupkan kamera lagi setelah popup ditutup
+          await _initCamerasAndFront();
         },
       ),
     );
 
-    // Jika ada hasil dari popup
     if (result != null && result is Map<String, dynamic>) {
       Navigator.pushNamed(context, '/output', arguments: result);
     }
@@ -213,9 +211,9 @@ class _OnboardingPageState extends State<OnboardingPage>
       body: SafeArea(
         child: Stack(
           children: [
-            // Konten utama
             SingleChildScrollView(
-              padding: const EdgeInsets.only(top: 0, bottom: 180),
+              // jarak bawah ditambah
+              padding: const EdgeInsets.only(top: 0, bottom: 230),
               child: Column(
                 children: [
                   ClipRRect(
@@ -234,23 +232,23 @@ class _OnboardingPageState extends State<OnboardingPage>
                           )
                         : const Center(child: CircularProgressIndicator()),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   Text(
                     'Museum SMB II Palembang',
                     style: GoogleFonts.candal(
-                      fontSize: 22,
+                      fontSize: 26,
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 10),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       'Selamat datang di Museum Sultan Mahmud Badaruddin II Palembang. Mencintai Budaya, Memajukan Peradaban.',
                       style: GoogleFonts.faustina(
-                        fontSize: 14,
+                        fontSize: 20,
                         color: Colors.black54,
                       ),
                       textAlign: TextAlign.center,
@@ -259,8 +257,6 @@ class _OnboardingPageState extends State<OnboardingPage>
                 ],
               ),
             ),
-
-            // Ikon kamera kanan atas
             Positioned(
               top: 2,
               right: 10,
@@ -270,23 +266,19 @@ class _OnboardingPageState extends State<OnboardingPage>
                 size: 22,
               ),
             ),
-
-            // Kamera live kiri bawah
             if (_cameraFront != null && _cameraFront!.value.isInitialized)
               Positioned(
-                bottom: 20,
-                left: 20,
+                bottom: 5,
+                left: 60,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: SizedBox(
-                    width: 110,
-                    height: 130,
+                    width: 140,
+                    height: 180,
                     child: CameraPreview(_cameraFront!),
                   ),
                 ),
               ),
-
-            // Tombol mic kanan bawah
             Positioned(
               bottom: 20,
               right: 20,

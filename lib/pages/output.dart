@@ -36,7 +36,7 @@ class _OutputPageState extends State<OutputPage> {
   }
 
   Future<void> _initVideo() async {
-    _controller = VideoPlayerController.asset('assets/videos/viii.mp4');
+    _controller = VideoPlayerController.asset('assets/videos/viv.mp4');
     await _controller.initialize();
     if (!_isDisposed) setState(() {});
     _controller.setVolume(0);
@@ -248,27 +248,56 @@ class _OutputPageState extends State<OutputPage> {
                         ],
                       ),
 
-                      /// 🔹 Tombol Play & Exit di bagian bawah kanan & kiri
+                      /// 🔥 Tombol Exit + Refresh (DITAMBAHKAN)
                       Positioned(
                         bottom: 5,
                         left: 0,
-                        child: ElevatedButton.icon(
-                          onPressed: _handleExit,
-                          icon: const Icon(Icons.exit_to_app,
-                              color: Colors.white),
-                          label: const Text("Exit",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500)),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                          ),
+                        child: Row(
+                          children: [
+                            // Exit
+                            ElevatedButton.icon(
+                              onPressed: _handleExit,
+                              icon: const Icon(Icons.exit_to_app,
+                                  color: Colors.white),
+                              label: const Text("Exit",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500)),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                              ),
+                            ),
+
+                            const SizedBox(width: 10),
+
+                            // 🔄 Refresh / Cari Lagi
+                            ElevatedButton.icon(
+                              onPressed: () {
+                                Navigator.pop(context); // kembali scan
+                              },
+                              icon: const Icon(Icons.refresh,
+                                  color: Colors.white),
+                              label: const Text("Cari Lagi",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500)),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
+
+                      /// Tombol replay kanan bawah
                       Positioned(
                         bottom: -10,
                         right: -10,
